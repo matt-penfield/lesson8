@@ -1,20 +1,32 @@
+<script setup lang="ts">
+import DashboardView from './views/DashboardView.vue'
+import { ref } from 'vue'
+
+const selectedMonth = ref('All')
+const months = ['All', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+</script>
+
 <template>
   <v-app>
-    <v-app-bar color="indigo-darken-3" density="comfortable">
-      <v-app-bar-title>My Dashboard</v-app-bar-title>
+    <v-app-bar color="grey-darken-4" density="comfortable" elevation="0">
+      <v-app-bar-title class="font-weight-bold">
+        <v-icon class="mr-2">mdi-view-dashboard</v-icon>
+        My Dashboard
+      </v-app-bar-title>
       <v-spacer />
-      <v-btn to="/" variant="text" prepend-icon="mdi-view-dashboard">Dashboard</v-btn>
-      <v-btn to="/reports" variant="text" prepend-icon="mdi-chart-bar">Reports</v-btn>
+      <v-select
+        v-model="selectedMonth"
+        :items="months"
+        density="compact"
+        variant="outlined"
+        hide-details
+        style="max-width: 160px"
+        class="mr-4"
+        label="Month"
+      />
     </v-app-bar>
     <v-main>
-      <router-view />
+      <DashboardView :selected-month="selectedMonth" />
     </v-main>
   </v-app>
 </template>
-
-<style scoped>
-.v-main {
-  background: #f5f7fa;
-  min-height: calc(100vh - 64px);
-}
-</style>
